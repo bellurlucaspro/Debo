@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import type { Adapter } from "next-auth/adapters";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
@@ -20,7 +21,7 @@ const googleEnabled = !!env.AUTH_GOOGLE_ID && !!env.AUTH_GOOGLE_SECRET;
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   secret: env.AUTH_SECRET,
   providers: [
     ...(googleEnabled

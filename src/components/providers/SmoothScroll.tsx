@@ -35,12 +35,12 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     gsap.ticker.lagSmoothing(0);
 
     // Expose l'instance pour le défilement programmatique (ancres, "remonter").
-    (window as Window & { lenis?: Lenis }).lenis = lenis;
+    (window as unknown as { lenis?: Lenis }).lenis = lenis;
 
     return () => {
       gsap.ticker.remove(onRaf);
       lenis.destroy();
-      delete (window as Window & { lenis?: Lenis }).lenis;
+      delete (window as unknown as { lenis?: Lenis }).lenis;
     };
   }, []);
 
